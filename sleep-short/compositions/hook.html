@@ -1,0 +1,22 @@
+<template>
+  <style>
+    #root { position: absolute; inset: 0; background: var(--ground); color: var(--ink); font-family: var(--font-body); }
+    #hook-label { position: absolute; left: 120px; top: 300px; font-weight: 700; font-size: 34px; letter-spacing: 0.12em; color: var(--muted); }
+    #hook-clock { position: absolute; left: 120px; top: 370px; font-family: var(--font-display); font-size: 190px; line-height: 1; color: var(--accent); font-variant-numeric: tabular-nums; }
+    #hook-line { position: absolute; left: 120px; top: 610px; width: 660px; font-family: var(--font-display); font-size: 88px; line-height: 1.05; }
+  </style>
+  <div id="root" data-composition-id="hook" data-width="1080" data-height="1920">
+    <div id="hook-label" class="clip" data-start="0" data-duration="3.5">24 HOURS AWAKE</div>
+    <div id="hook-clock" class="clip" data-start="0" data-duration="3.5"><span id="hook-num">00:00</span></div>
+    <div id="hook-line" class="clip" data-start="0" data-duration="3.5"><span id="hook-text">Here's what it does to your brain.</span></div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    const t = { h: 0 };
+    tl.fromTo(t, { h: 0 }, { h: 24, duration: 1.6, ease: "power2.in",
+      onUpdate: () => { document.querySelector("#hook-num").textContent = String(Math.floor(t.h)).padStart(2, "0") + ":00"; } }, 0);
+    tl.fromTo("#hook-num", { scale: 1 }, { scale: 1.08, duration: 0.12, yoyo: true, repeat: 1, transformOrigin: "left center" }, 1.6);
+    tl.fromTo("#hook-text", { y: 0 }, { y: -14, duration: 3.3, ease: "none" }, 0);
+    window.__timelines["hook"] = tl;
+  </script>
+</template>
