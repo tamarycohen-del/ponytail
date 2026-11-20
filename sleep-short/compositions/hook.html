@@ -1,22 +1,29 @@
 <template>
   <style>
+    #root span[id] { display: inline-block; }
     #root { position: absolute; inset: 0; background: var(--ground); color: var(--ink); font-family: var(--font-body); }
-    #hook-label { position: absolute; left: 120px; top: 300px; font-weight: 700; font-size: 34px; letter-spacing: 0.12em; color: var(--muted); }
-    #hook-clock { position: absolute; left: 120px; top: 370px; font-family: var(--font-display); font-size: 190px; line-height: 1; color: var(--accent); font-variant-numeric: tabular-nums; }
-    #hook-line { position: absolute; left: 120px; top: 610px; width: 660px; font-family: var(--font-display); font-size: 88px; line-height: 1.05; }
+    .tag { position: absolute; left: 120px; top: 300px; padding: 10px 22px; border-radius: 10px; color: var(--ground); font-family: var(--font-display); font-size: 44px; }
+    .head { position: absolute; left: 120px; top: 420px; width: 660px; font-family: var(--font-display); font-size: 80px; line-height: 1.05; }
+    .sub { position: absolute; left: 120px; width: 660px; font-size: 50px; font-weight: 700; line-height: 1.2; color: var(--muted); }
+    .meter { position: absolute; left: 120px; top: 820px; width: 640px; height: 56px; border-radius: 28px; background: #1e2640; overflow: hidden; }
+    .fill { width: 640px; height: 100%; transform-origin: left center; }
+    .limit { position: absolute; left: 632px; top: 800px; width: 6px; height: 96px; background: var(--ink); border-radius: 3px; }
+    .limit-label { position: absolute; left: 450px; top: 905px; font-size: 28px; font-weight: 700; color: var(--muted); }
+    .val { position: absolute; left: 120px; top: 960px; width: 660px; font-size: 52px; font-weight: 900; }
+    .src { position: absolute; left: 120px; top: 1180px; font-size: 28px; color: var(--muted); }
   </style>
   <div id="root" data-composition-id="hook" data-width="1080" data-height="1920">
-    <div id="hook-label" class="clip" data-start="0" data-duration="3.5">24 HOURS AWAKE</div>
-    <div id="hook-clock" class="clip" data-start="0" data-duration="3.5"><span id="hook-num">00:00</span></div>
-    <div id="hook-line" class="clip" data-start="0" data-duration="3.5"><span id="hook-text">Here's what it does to your brain.</span></div>
+    <div id="hook-label" class="clip " data-start="0" data-duration="4.6" style="position:absolute;left:120px;top:300px;font-weight:700;font-size:34px;letter-spacing:0.12em;color:var(--muted)">24 HOURS AWAKE</div>
+    <div id="hook-clock" class="clip " data-start="0" data-duration="4.6" style="position:absolute;left:120px;top:370px;font-family:var(--font-display);font-size:190px;line-height:1;color:var(--accent);font-variant-numeric:tabular-nums"><span id="hook-num">00:00</span></div>
+    <div id="hook-line" class="clip head" data-start="0" data-duration="4.6" style="top:610px;font-size:88px"><span id="hook-text">What does it do to your brain?</span></div>
   </div>
   <script>
     const tl = gsap.timeline({ paused: true });
     const t = { h: 0 };
-    tl.fromTo(t, { h: 0 }, { h: 24, duration: 1.6, ease: "power2.in",
+    tl.fromTo(t, { h: 0 }, { h: 24, duration: 2, ease: "power2.in",
       onUpdate: () => { document.querySelector("#hook-num").textContent = String(Math.floor(t.h)).padStart(2, "0") + ":00"; } }, 0);
-    tl.fromTo("#hook-num", { scale: 1 }, { scale: 1.08, duration: 0.12, yoyo: true, repeat: 1, transformOrigin: "left center" }, 1.6);
-    tl.fromTo("#hook-text", { y: 0 }, { y: -14, duration: 3.3, ease: "none" }, 0);
+    tl.fromTo("#hook-num", { scale: 1 }, { scale: 1.1, duration: 0.12, yoyo: true, repeat: 1, transformOrigin: "left center" }, 2);
+    tl.fromTo("#hook-text", { y: 0 }, { y: -14, duration: 4.4, ease: "none" }, 0);
     window.__timelines["hook"] = tl;
   </script>
 </template>
